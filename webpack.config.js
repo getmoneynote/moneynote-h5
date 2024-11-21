@@ -4,13 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.join(__dirname, '/dist'), // the bundle output path
+    path: path.resolve(__dirname, 'dist'), // the bundle output path
     filename: 'main.js' // the name of the bundle
   },
   // import App from './App';
   resolve: {
     modules: [__dirname, 'src', 'node_modules'],
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
+    alias: {
+      '@': path.join(__dirname, './src/')
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -18,7 +21,8 @@ module.exports = {
     })
   ],
   devServer: {
-    port: 3036 // you can change the port
+    port: 3036, // you can change the port
+    historyApiFallback: true
   },
   module: {
     rules: [
